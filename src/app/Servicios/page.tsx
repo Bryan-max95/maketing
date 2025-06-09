@@ -1,14 +1,28 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, JSX } from 'react';
+import Image from 'next/image'; // Import Next.js Image component
 import { ChevronLeft, ChevronRight, Code, Palette, Share2, TrendingUp, Camera, Globe } from 'lucide-react';
 
-const services = [
+// Define TypeScript interface for services
+interface Service {
+  id: number;
+  title: string;
+  description: string;
+  icon: JSX.Element;
+  image: string;
+  features: string[];
+  color: string;
+  stats: string;
+  bgPattern: string;
+}
+
+const services: Service[] = [
   {
     id: 1,
     title: "Desarrollo Web Experto",
     description: "Creación de sitios web modernos, responsivos y optimizados con tecnologías de vanguardia.",
     icon: <Code className="w-8 h-8" />,
-    img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop",
     features: ["React & Next.js", "E-commerce", "SEO Optimizado", "Performance"],
     color: "from-blue-600 to-blue-800",
     stats: "50+ Proyectos",
@@ -74,13 +88,11 @@ const services = [
 export default function ServicesCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [direction, setDirection] = useState(0);
 
   useEffect(() => {
     if (!isPlaying) return;
     
     const interval = setInterval(() => {
-      setDirection(1);
       setCurrentIndex((prev) => (prev + 1) % services.length);
     }, 4000);
 
@@ -88,17 +100,14 @@ export default function ServicesCarousel() {
   }, [currentIndex, isPlaying]);
 
   const goToSlide = (index: number) => {
-    setDirection(index > currentIndex ? 1 : -1);
     setCurrentIndex(index);
   };
 
   const nextSlide = () => {
-    setDirection(1);
     setCurrentIndex((prev) => (prev + 1) % services.length);
   };
 
   const prevSlide = () => {
-    setDirection(-1);
     setCurrentIndex((prev) => (prev - 1 + services.length) % services.length);
   };
 
@@ -156,10 +165,13 @@ export default function ServicesCarousel() {
           {/* Right Side - Image Carousel */}
           <div className="image-carousel">
             <div className="image-container">
-              <img 
-                src={currentService.image} 
+              <Image
+                src={currentService.image}
                 alt={currentService.title}
                 className="carousel-image"
+                width={800} // Approximate width based on 4:3 aspect ratio
+                height={600} // Approximate height based on 4:3 aspect ratio
+                style={{ objectFit: 'cover' }} // Maintain object-fit: cover
               />
               <div className={`image-overlay bg-gradient-to-t ${currentService.color} opacity-20`}></div>
             </div>
@@ -435,7 +447,6 @@ export default function ServicesCarousel() {
         .carousel-image {
           width: 100%;
           height: 100%;
-          object-fit: cover;
           transition: transform 0.8s ease;
         }
 
