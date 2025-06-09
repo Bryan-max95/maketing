@@ -16,7 +16,6 @@ import {
   Star,
   Zap
 } from 'lucide-react';
-import { div } from 'framer-motion/client';
 
 const marketingWords = [
   "Branding", "SEO", "ROI", "Engagement", "Conversión", "Analytics", 
