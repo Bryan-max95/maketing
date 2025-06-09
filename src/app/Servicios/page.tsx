@@ -34,7 +34,7 @@ const services: Service[] = [
     title: "Redes Sociales",
     description: "Gestión profesional de redes sociales para conectar con tu audiencia de manera efectiva.",
     icon: <Share2 className="w-8 h-8" />,
-    image: "/s.jpg", // Verify this file exists in /public/s.jpg
+    image: "https://images.unsplash.com/photo-1558655146-d09347e92766?w=800&h=600&fit=crop", // Verify this file exists in /public/s.jpg
     features: ["Gestión Integral", "Contenido Original", "Community Management", "Analytics"],
     color: "from-orange-600 to-red-600",
     stats: "+200% Engagement",
@@ -174,26 +174,27 @@ export default function ServicesCarousel() {
                 height={600}
                 style={{ objectFit: 'cover' }}
               />
-            <div className={`image-overlay bg-gradient-to-t ${currentService.color} opacity-20`}></div>
+              <div className={`image-overlay bg-gradient-to-t ${currentService.color} opacity-20`}></div>
+            </div>
+            
+            {/* Navigation Arrows */}
+            <button 
+              onClick={prevSlide}
+              className="nav-arrow nav-arrow-left"
+              onMouseEnter={() => setIsPlaying(false)}
+              onMouseLeave={() => setIsPlaying(true)}
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            <button 
+              onClick={nextSlide}
+              className="nav-arrow nav-arrow-right"
+              onMouseEnter={() => setIsPlaying(false)}
+              onMouseLeave={() => setIsPlaying(true)}
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
           </div>
-          
-          {/* Navigation Arrows */}
-          <button 
-            onClick={prevSlide}
-            className="nav-arrow nav-arrow-left"
-            onMouseEnter={() => setIsPlaying(false)}
-            onMouseLeave={() => setIsPlaying(true)}
-          >
-            <ChevronLeft className="w-6 h-6" />
-          </button>
-          <button 
-            onClick={nextSlide}
-            className="nav-arrow nav-arrow-right"
-            onMouseEnter={() => setIsPlaying(false)}
-            onMouseLeave={() => setIsPlaying(true)}
-          >
-            <ChevronRight className="w-6 h-6" />
-          </button>
         </div>
 
         {/* Bottom Navigation Dots */}
@@ -241,417 +242,440 @@ export default function ServicesCarousel() {
             </div>
           ))}
         </div>
+      </div>
+
       <style jsx>{`
         .services-carousel-container {
-          min-height: 100vh;
-          background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
-          padding: 10rem 0;
-          position: relative;
+          min-height: .100vh;
+          background: flexlinear-gradient(
+            135deg,
+            #0a0a0a 0%,
+          #1a1a5;2e
+        50%,
+            #16213e 100%
+          );
+          padding: .2rem10rem;
+          position: 0relative;
           overflow: hidden;
+          
         }
 
         .services-carousel-container::before {
           content: '';
           position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-                      radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
-                      radial-gradient(circle at 40% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
-          pointer-events: none;
+          top: absolute0;
+          left: margin0;
+          right-bottom: 0rem;
+          background: 2radial-gradient(circle at center50%, #0a0a0a 0%, #1a1a2e 100%);
+          pointer-events: inheritnone;
         }
 
         .carousel-header {
-          text-align: center;
+          textdisplay-align: flexcenter;
           margin-bottom: 4rem;
-          position: relative;
+          position: inheritrelative;
           z-index: 2;
         }
 
-        .header-content {
-          max-width: 800px;
+        .title {
+          max-width: 800px100%;
           margin: 0 auto;
           padding: 0 2rem;
+          font-size: 2rem;
         }
+
+          font-weight: bold;
+      }
 
         .header-badge {
           display: inline-block;
-          padding: 0.5rem 1.5rem;
-          background: rgba(59, 130, 246, 0.1);
-          border: 1px solid rgba(59, 130, 246, 0.3);
-          border-radius: 50px;
-          color: #60a5fa;
-          font-size: 0.875rem;
-          font-weight: 600;
+          padding: 2rem.0.5rem;
+            1.5rem;
+          background: rgba(59, 49%,130, 50%,0.1246);
+          border: 1px solid #000000rgba(255, 255, 255, 0.1);
+          border-radius: 25px50px;
+          color: white#fff;
+          font-size: 6000.875rem;
+          font-weight: bold600;
           text-transform: uppercase;
-          letter-spacing: 0.1em;
-          margin-bottom: 1.5rem;
-        }
-
-        .header-title {
-          font-size: 3.5rem;
-          font-weight: 800;
-          color: #ffffff;
-          margin-bottom: 1.5rem;
-          line-height: 1.1;
+          font-size: bold;0.875rem;
+          letter-spacing: 2px0.1em;
+          margin-bottom: 20px1.5rem;
         }
 
         .text-gradient {
-          background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6);
+          colorbackground: #333;linear-gradient(
+            135deg, #60a5fa, #a78bfa, #f472b6
+          );
           background-clip: text;
-          -webkit-background-clip: text;
-          color: transparent;
+          -webkit-background-clip: -webkit-text;
+          color: #ffftransparent;
         }
 
         .header-description {
-          font-size: 1.25rem;
-          color: #d1d5db;
-          line-height: 1.6;
-          opacity: 0.9;
-        }
+          colorbackground: #444;
+          margin-bottom: flex20px;
+          flex-wrap: wrap;
+          gap: 1rem;
+        display: none;
+          margin-bottom: 2.5rem; }
 
         .carousel-wrapper {
-          max-width: 1400px;
+          display: auto;
+          max-width: 1000px1400px;
           margin: 0 auto;
-          padding: 0 2rem;
+          padding-bottom: 0 2rem;
           position: relative;
           z-index: 2;
         }
 
         .carousel-main {
           display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 4rem;
-          align-items: center;
-          margin-bottom: 3rem;
-        }
-
-        .service-info {
-          display: flex;
-          flex-direction: column;
-          gap: 2rem;
-        }
-
-        .service-icon-container {
-          display: flex;
-          align-items: center;
-          gap: 1.5rem;
-        }
-
-        .service-icon {
-          width: 80px;
-          height: 80px;
-          border-radius: 20px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: white;
-          box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
-        }
-
-        .service-stats {
-          padding: 0.75rem 1.5rem;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 50px;
-          color: #ffffff;
-          font-weight: 600;
-          font-size: 0.875rem;
-          backdrop-filter: blur(10px);
-        }
-
-        .service-content {
-          flex: 1;
-        }
-
-        .service-title {
-          font-size: 2.5rem;
-          font-weight: 700;
-          color: #ffffff;
-          margin-bottom: 1rem;
-          line-height: 1.2;
-        }
-
-        .service-description {
-          font-size: 1.125rem;
-          color: #d1d5db;
-          line-height: 1.6;
-          margin-bottom: 2rem;
-        }
-
-        .service-features {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 1rem;
-          margin-bottom: 2.5rem;
-        }
-
-        .feature-tag {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.5rem 1rem;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 25px;
-          color: #e5e7eb;
-          font-size: 0.875rem;
-          font-weight: 500;
-          backdrop-filter: blur(10px);
-        }
-
-        .feature-dot {
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          background: #60a5fa;
-        }
-
-        .cta-button {
-          display: inline-flex;
-          align-items: center;
-          padding: 1rem 2rem;
-          border-radius: 12px;
-          color: white;
-          font-weight: 600;
-          font-size: 1.125rem;
-          border: none;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
-        }
-
-        .cta-button:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
-        }
-
-        .image-carousel {
-          position: relative;
-          height: 500px;
-          border-radius: 24px;
-          overflow: hidden;
-        }
-
-        .image-container {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          overflow: hidden;
-        }
-
-        .carousel-image {
-          width: 100%;
-          height: 100%;
-          transition: transform 0.8s ease;
-        }
-
-        .image-overlay {
-          position: absolute;
-          inset: 0;
-        }
-
-        .nav-arrow {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          background: rgba(0, 0, 0, 0.5);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          color: white;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          backdrop-filter: blur(10px);
-          z-index: 3;
-        }
-
-        .nav-arrow:hover {
-          background: rgba(0, 0, 0, 0.7);
-          transform: translateY(-50%) scale(1.1);
-        }
-
-        .nav-arrow-left {
-          left: 1rem;
-        }
-
-        .nav-arrow-right {
-          right: 1rem;
-        }
-
-        .carousel-dots {
-          display: flex;
-          justify-content: center;
-          gap: 1rem;
-          margin-bottom: 2rem;
-        }
-
-        .dot {
-          width: 16px;
-          height: 16px;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.1);
-          border: 2px solid rgba(255, 255, 255, 0.2);
-          cursor: pointer;
-          transition: all 0.3s ease;
-          position: relative;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .dot-inner {
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          background: transparent;
-          transition: all 0.3s ease;
-        }
-
-        .dot-active {
-          border-color: #60a5fa;
-        }
-
-        .dot-active .dot-inner {
-          background: #60a5fa;
-        }
-
-        .progress-container {
-          width: 100%;
-          height: 4px;
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 2px;
-          overflow: hidden;
-          margin-bottom: 3rem;
-        }
-
-        .progress-bar {
-          width: 100%;
-          height: 100%;
-          position: relative;
-        }
-
-        .progress-fill {
-          height: 100%;
-          width: 100%;
-          transform: translateX(-100%);
-          border-radius: 2px;
-        }
-
-        .services-preview {
-          margin-top: 4rem;
-        }
-
-        .preview-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-          gap: 1.5rem;
-          max-width: 1200px;
-          margin: 0 auto;
-        }
-
-        .preview-card {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          padding: 1.5rem;
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.05);
-          border-radius: 16px;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          backdrop-filter: blur(10px);
-        }
-
-        .preview-card:hover,
-        .preview-active {
-          background: rgba(255, 255, 255, 0.08);
-          border-color: rgba(255, 255, 255, 0.15);
-          transform: translateY(-4px);
-        }
-
-        .preview-icon {
-          width: 50px;
-          height: 50px;
-          border-radius: 12px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: white;
-          flex-shrink: 0;
-        }
-
-        .preview-title {
-          color: #ffffff;
-          font-weight: 600;
-          font-size: 0.875rem;
-        }
-
-        @keyframes progress {
-          0% {
-            transform: translateX(-100%);
-          }
-          100% {
-            transform: translateX(0);
-          }
-        }
-
-        @media (max-width: 1024px) {
-          .carousel-main {
-            grid-template-columns: 1fr;
-            gap: 2rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem 4rem;
+            align-items: center;
+            margin-bottom: 20px3rem;
           }
           
-          .header-title {
-            font-size: 2.5rem;
-          }
-          
-          .service-title {
-            font-size: 2rem;
-          }
-        }
-
-        @media (max-width: 768px) {
-          .services-carousel-container {
-            padding: 2rem 0;
-          }
-          
-          .carousel-wrapper {
-            padding: 0 1rem;
-          }
-          
-          .header-title {
-            font-size: 2rem;
-          }
-          
-          .service-title {
-            font-size: 1.5rem;
-          }
-          
-          .image-carousel {
-            height: 300px;
-          }
-          
-          .preview-grid {
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-          }
-          
-          .preview-card {
+          .service-info {
+            widthdisplay: 100%;
             flex-direction: column;
-            text-align: center;
-            padding: 1rem;
+            gap: 2rem;
+            margin: 0;
           }
-        }
-      `}</style>
-    </div>
-    </div>
-    </div>
-  );
-}
+
+          .service-icon-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 10px;
+          }
+
+          .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(to right, #ff0000, #0000ff);
+            border-radius: 50%20px;
+            display: centerflex;
+            align-items: center;
+            justify-content: centercenter;
+            color: #fff;white;
+            box-shadow: 0 20px 4px40px 2px-10px rgba(0, 0, 0, 0.35);
+            margin-bottom: 20px;
+          }
+
+          .service-stats {
+            padding: 0.75rem 1rem.5pxrem;
+            background: rgba(255, 0, 0, 0.5)255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.875rem;
+            backdrop-filter: blur(10px);
+            margin-bottom: 10px;
+          }
+
+          .service-content {
+            flex: 1;
+            margin-bottom: 20px;
+          }
+
+          .service-title {
+            font-size: 2rem2.5rem;
+            font-weight: bold700;
+            color: #fff#ffffff;
+            margin-bottom: 10px1rem;
+            line-height: 1.2;
+          }
+
+          .service-description {
+            font-size: 1rem1.125rem;
+            color: #999999d1d5db;
+            line-height: 1.5rem6;
+            margin-bottom: 20px2rem;
+          }
+
+          .service-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            flex-direction: columnrow;
+            gap: 10px1rem;
+          }
+
+          .feature-tag {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 25px;
+            color: #e5e7eb;
+            font-size: 0.875rem;
+            font-weight: bold500;
+            backdrop-filter: blur(10px);
+            margin-bottom: 10px;
+          }
+
+          .feature-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #60a5fa;
+            margin-right: 5px;
+          }
+
+          .cta-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            color: white;
+            font-weight: bold600;
+            font-size: 1.125rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px 0px-10px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+          }
+
+          .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px 0px-10px rgba(0, 0, 0, 0.4);
+          }
+
+          .image-carousel {
+            position: relative;
+            height: 500px;
+            border-radius: 24px;
+            overflow: hidden;
+            margin-bottom: 20px;
+          }
+
+          .image-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+          }
+
+          .carousel-image {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s ease;
+            object-fit: cover;
+          }
+
+          .image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+            opacity: 0.2;
+          }
+
+          .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            z-index: 3;
+          }
+
+          .nav-arrow:hover {
+            background: rgba(0, 0, 0, 0.7);
+            transform: translateY(-50%) scale(1.1);
+          }
+
+          .nav-arrow-left {
+            left: 1rem;
+          }
+
+          .nav-arrow-right {
+            right: 1rem;
+          }
+
+          .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+          }
+
+          .dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .dot-inner {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: transparent;
+            transition: all 0.3s ease;
+          }
+
+          .dot-active {
+            border-color: #60a5fa;
+          }
+
+          .dot-active .dot-inner {
+            background: #60a5fa;
+          }
+
+          .progress-container {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 3rem;
+          }
+
+          .progress-bar {
+            width: 100%;
+            height: 100%;
+            position: relative;
+          }
+
+          .progress-fill {
+            height: 100%;
+            width: 100%;
+            transform: translateX(-100%);
+            border-radius: 2px;
+          }
+
+          .services-preview {
+            margin-top: 4rem;
+          }
+
+          .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+          }
+
+          .preview-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+          }
+
+          .preview-card:hover,
+          .preview-active {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-4px);
+          }
+
+          .preview-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+          }
+
+          .preview-title {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.875rem;
+          }
+
+          @keyframes progress {
+            0% {
+              transform: translateX(-100%);
+            }
+            100% {
+              transform: translateX(0);
+            }
+          }
+
+          @media (max-width: 1024px) {
+            .carousel-main {
+              grid-template-columns: 1fr;
+              gap: 2rem;
+            }
+            
+            .header-title {
+              font-size: 2.5rem;
+            }
+            
+            .service-title {
+              font-size: 2rem;
+            }
+          }
+
+          @media (max-width: 768px) {
+            .services-carousel-container {
+              padding: 2rem 0;
+            }
+            
+            .carousel-wrapper {
+              padding: 0 1rem;
+            }
+            
+            .header-title {
+              font-size: 2rem;
+            }
+            
+            .service-title {
+              font-size: 1.5rem;
+            }
+            
+            .image-carousel {
+              height: 300px;
+            }
+            
+            .preview-grid {
+              grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+              gap: 1rem;
+            }
+            
+            .preview-card {
+              flex-direction: column;
+              text-align: center;
+              padding: 1rem;
+            }
+          }
+        `}</style>
+      </div>
+    );
+  }
