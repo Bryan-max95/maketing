@@ -1,6 +1,7 @@
 "use client";
-import React, { useState, useEffect, JSX } from 'react';
-import Image from 'next/image'; // Import Next.js Image component
+
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { ChevronLeft, ChevronRight, Code, Palette, Share2, TrendingUp, Camera, Globe } from 'lucide-react';
 
 // Define TypeScript interface for services
@@ -8,7 +9,7 @@ interface Service {
   id: number;
   title: string;
   description: string;
-  icon: JSX.Element;
+  icon: React.ReactElement;
   image: string;
   features: string[];
   color: string;
@@ -169,9 +170,9 @@ export default function ServicesCarousel() {
                 src={currentService.image}
                 alt={currentService.title}
                 className="carousel-image"
-                width={800} // Approximate width based on 4:3 aspect ratio
-                height={600} // Approximate height based on 4:3 aspect ratio
-                style={{ objectFit: 'cover' }} // Maintain object-fit: cover
+                width={800}
+                height={600}
+                style={{ objectFit: 'cover' }}
               />
               <div className={`image-overlay bg-gradient-to-t ${currentService.color} opacity-20`}></div>
             </div>
