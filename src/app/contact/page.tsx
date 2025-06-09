@@ -42,15 +42,6 @@ interface SocialLink {
   label: string;
 }
 
-const marketingWords = [
-  "Branding", "SEO", "ROI", "Engagement", "Conversión", "Analytics", 
-  "Digital", "Growth", "Leads", "Content", "Social Media", "Campañas",
-  "Performance", "KPIs", "Targeting", "Retargeting", "Funnels", "CRM",
-  "Email Marketing", "Influencer", "Viral", "Trending", "Community",
-  "Brand Awareness", "Customer Journey", "Omnichannel", "UX/UI",
-  "A/B Testing", "Automation", "Storytelling", "Visual Identity"
-];
-
 const socialLinks: SocialLink[] = [
   {
     name: "WhatsApp",
