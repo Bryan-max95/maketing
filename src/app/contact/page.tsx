@@ -89,13 +89,13 @@ const contactInfo: ContactInfo[] = [
   {
     icon: <Phone className="w-6 h-6" />,
     title: "Teléfono",
-    value: "+504 1234-5678",
+    value: "+504 9579-1301",
     description: "Lun - Vie: 8:00 AM - 6:00 PM"
   },
   {
     icon: <Mail className="w-6 h-6" />,
     title: "Email",
-    value: "contacto@tuempresa.com",
+    value: "josue@bwpentesting.com",
     description: "Respuesta en 24 horas"
   },
   {
@@ -330,7 +330,7 @@ export default function ContactSection() {
                   <h5 className="whatsapp-title">¿Necesitas ayuda inmediata?</h5>
                   <p className="whatsapp-text">Chatea con nuestro equipo por WhatsApp</p>
                   <a
-                    href="https://wa.me/50412345678?text=Hola,%20me%20interesa%20conocer%20más%20sobre%20sus%20servicios%20de%20marketing"
+                    href="https://wa.me/50495791301"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="whatsapp-button"
