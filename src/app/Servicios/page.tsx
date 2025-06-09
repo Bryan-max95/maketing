@@ -34,7 +34,7 @@ const services: Service[] = [
     title: "Redes Sociales",
     description: "Gestión profesional de redes sociales para conectar con tu audiencia de manera efectiva.",
     icon: <Share2 className="w-8 h-8" />,
-    image: "/s.jpg",
+    image: "/s.jpg", // Verify this file exists in /public/s.jpg
     features: ["Gestión Integral", "Contenido Original", "Community Management", "Analytics"],
     color: "from-orange-600 to-red-600",
     stats: "+200% Engagement",
@@ -174,27 +174,26 @@ export default function ServicesCarousel() {
                 height={600}
                 style={{ objectFit: 'cover' }}
               />
-              <div className={`image-overlay bg-gradient-to-t ${currentService.color} opacity-20`}></div>
-            </div>
-            
-            {/* Navigation Arrows */}
-            <button 
-              onClick={prevSlide}
-              className="nav-arrow nav-arrow-left"
-              onMouseEnter={() => setIsPlaying(false)}
-              onMouseLeave={() => setIsPlaying(true)}
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
-            <button 
-              onClick={nextSlide}
-              className="nav-arrow nav-arrow-right"
-              onMouseEnter={() => setIsPlaying(false)}
-              onMouseLeave={() => setIsPlaying(true)}
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
+            <div className={`image-overlay bg-gradient-to-t ${currentService.color} opacity-20`}></div>
           </div>
+          
+          {/* Navigation Arrows */}
+          <button 
+            onClick={prevSlide}
+            className="nav-arrow nav-arrow-left"
+            onMouseEnter={() => setIsPlaying(false)}
+            onMouseLeave={() => setIsPlaying(true)}
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+          <button 
+            onClick={nextSlide}
+            className="nav-arrow nav-arrow-right"
+            onMouseEnter={() => setIsPlaying(false)}
+            onMouseLeave={() => setIsPlaying(true)}
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
         </div>
 
         {/* Bottom Navigation Dots */}
@@ -242,8 +241,6 @@ export default function ServicesCarousel() {
             </div>
           ))}
         </div>
-      </div>
-
       <style jsx>{`
         .services-carousel-container {
           min-height: 100vh;
@@ -653,6 +650,8 @@ export default function ServicesCarousel() {
           }
         }
       `}</style>
+    </div>
+    </div>
     </div>
   );
 }
