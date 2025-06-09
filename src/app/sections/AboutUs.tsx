@@ -103,7 +103,7 @@ export default function AboutUs() {
           className="header"
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true, margin: "-50px" }}
         >
           <div
@@ -123,7 +123,7 @@ export default function AboutUs() {
             className="header-subtitle"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6,}}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
             Nuestra Historia
@@ -132,7 +132,7 @@ export default function AboutUs() {
             className="header-title"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
             Más que una agencia, somos tu socio digital
@@ -141,7 +141,7 @@ export default function AboutUs() {
             className="header-text"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
             Desde 2015, hemos estado transformando ideas en experiencias digitales
@@ -199,7 +199,7 @@ export default function AboutUs() {
             className="team-subtitle"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
             Nuestro Equipo
@@ -208,7 +208,7 @@ export default function AboutUs() {
             className="team-title"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
             Expertos Apasionados
@@ -217,7 +217,7 @@ export default function AboutUs() {
             className="team-text"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6,}}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
             Contamos con un equipo multidisciplinario de diseñadores,
@@ -228,7 +228,7 @@ export default function AboutUs() {
             className="team-button"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6, }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
