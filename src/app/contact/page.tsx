@@ -1,6 +1,6 @@
 "use client";
 
-import React, { JSX, useState } from 'react';
+import React, { useState } from 'react';
 import { 
   Mail, 
   Phone, 
@@ -27,7 +27,7 @@ interface FormData {
 }
 
 interface ContactInfo {
-  icon: JSX.Element;
+  icon: React.ReactElement;
   title: string;
   value: string;
   description: string;
@@ -35,7 +35,7 @@ interface ContactInfo {
 
 interface SocialLink {
   name: string;
-  icon: JSX.Element;
+  icon: React.ReactElement;
   url: string;
   color: string;
   hoverColor: string;
@@ -202,7 +202,7 @@ export default function ContactSection() {
                     required
                   />
                 </div>
-              beets
+              </div>
               <div className="form-row">
                 <div className="form-group">
                   <label htmlFor="phone" className="form-label">Teléfono</label>
