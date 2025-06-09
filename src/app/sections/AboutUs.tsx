@@ -1,28 +1,94 @@
 "use client";
 
-import { motion, useMotionValue, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
+import { JSX } from "react";
+
+// Define TypeScript interface for values
+interface Value {
+  title: string;
+  description: string;
+  icon: JSX.Element;
+  color: string;
+}
 
 export default function AboutUs() {
-  const sectionRef = useRef(null);
-
-
-
+  const values: Value[] = [
+    {
+      title: "Innovación",
+      description:
+        "Adoptamos las últimas tecnologías y metodologías para mantenerte a la vanguardia.",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="48"
+          height="48"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M13 10V3L4 14h7v7l-6-11h-7z" />
+        </svg>
+      ),
+      color: "rgba(59, 130, 246, 0.1)",
+    },
+    {
+      title: "Transparencia",
+      description:
+        "Comunicación clara y procesos abiertos en cada etapa del proyecto.",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="48"
+          height="48"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+        </svg>
+      ),
+      color: "rgba(16, 185, 129, 0.1)",
+    },
+    {
+      title: "Excelencia",
+      description:
+        "Buscamos la perfección en cada detalle para superar tus expectativas.",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="48"
+          height="48"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+          <polyline points="22 4 12 14.01 9 11.01" />
+        </svg>
+      ),
+      color: "rgba(245, 158, 11, 0.1)",
+    },
+  ];
 
   return (
     <motion.section
-      
       className="about-us"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8 }}
-   
     >
       {/* Fondo dinámico con efecto parallax */}
-      <motion.div
-        
-      />
+      <div className="background-overlay" />
 
       {/* Efectos de iluminación */}
       <div className="lighting-effects">
@@ -37,21 +103,27 @@ export default function AboutUs() {
           className="header"
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.8, }}
           viewport={{ once: true, margin: "-50px" }}
         >
-          <motion.div
+          <div
             className="header-underline"
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            transition={{ duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            viewport={{ once: true }}
+            style={{
+              position: 'absolute',
+              bottom: '-1.5rem',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: '200px',
+              height: '4px',
+              background: 'linear-gradient(90deg, rgba(59, 130, 246, 0) 0%, #3b82f6 50%, rgba(59, 130, 246, 0) 100%)',
+              transformOrigin: 'left center',
+            }}
           />
           <motion.span
             className="header-subtitle"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.6,}}
             viewport={{ once: true }}
           >
             Nuestra Historia
@@ -60,7 +132,7 @@ export default function AboutUs() {
             className="header-title"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.8, }}
             viewport={{ once: true }}
           >
             Más que una agencia, somos tu socio digital
@@ -69,12 +141,12 @@ export default function AboutUs() {
             className="header-text"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
+            transition={{ duration: 0.6, }}
             viewport={{ once: true }}
           >
             Desde 2015, hemos estado transformando ideas en experiencias digitales
             impactantes. Nuestro enfoque combina estrategia, creatividad y
-            tecnología para ofrecer resultados que impulsan el crecimiento de tu
+            tecnología para ofrecer soluciones que impulsan el crecimiento de tu
             negocio.
           </motion.p>
         </motion.div>
@@ -94,72 +166,7 @@ export default function AboutUs() {
             },
           }}
         >
-          {[
-            {
-              title: "Innovación",
-              description:
-                "Adoptamos las últimas tecnologías y metodologías para mantenerte a la vanguardia.",
-              icon: (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="48"
-                  height="48"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              ),
-              color: "rgba(59, 130, 246, 0.1)",
-            },
-            {
-              title: "Transparencia",
-              description:
-                "Comunicación clara y procesos abiertos en cada etapa del proyecto.",
-              icon: (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="48"
-                  height="48"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                </svg>
-              ),
-              color: "rgba(16, 185, 129, 0.1)",
-            },
-            {
-              title: "Excelencia",
-              description:
-                "Buscamos la perfección en cada detalle para superar tus expectativas.",
-              icon: (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="48"
-                  height="48"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                  <polyline points="22 4 12 14.01 9 11.01" />
-                </svg>
-              ),
-              color: "rgba(245, 158, 11, 0.1)",
-            },
-          ].map((value, index) => (
+          {values.map((value, index) => (
             <motion.div
               key={index}
               className="value-card"
@@ -192,7 +199,7 @@ export default function AboutUs() {
             className="team-subtitle"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, }}
             viewport={{ once: true }}
           >
             Nuestro Equipo
@@ -201,7 +208,7 @@ export default function AboutUs() {
             className="team-title"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.6, }}
             viewport={{ once: true }}
           >
             Expertos Apasionados
@@ -210,7 +217,7 @@ export default function AboutUs() {
             className="team-text"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
+            transition={{ duration: 0.6,}}
             viewport={{ once: true }}
           >
             Contamos con un equipo multidisciplinario de diseñadores,
@@ -221,7 +228,7 @@ export default function AboutUs() {
             className="team-button"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
+            transition={{ duration: 0.6, }}
             viewport={{ once: true }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -295,7 +302,7 @@ export default function AboutUs() {
         .about-us {
           position: relative;
           width: 100%;
-          min-height: 100vh; /* Asegura que cubra toda la altura */
+          min-height: 100vh;
           margin: 0;
           padding: 1rem 0;
           background: linear-gradient(90deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
@@ -357,7 +364,7 @@ export default function AboutUs() {
         }
 
         .content-container {
-          max-width: 100%; /* Ocupa todo el ancho */
+          max-width: 100%;
           margin: 0;
           padding: 0 2rem;
           position: relative;
