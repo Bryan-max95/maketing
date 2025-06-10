@@ -81,11 +81,11 @@ const Navbar: React.FC = () => {
         {/* Mobile Menu */}
         {isOpen && (
           <div className="mobile-menu">
-            <Link href="/services" className="mobile-nav-button">
+            <Link href="/Servicios" className="mobile-nav-button">
               <span className="mobile-button-text">Servicios</span>
               <div className="mobile-button-glow"></div>
             </Link>
-            <Link href="/about" className="mobile-nav-button">
+            <Link href="/Nosotros" className="mobile-nav-button">
               <span className="mobile-button-text">Nosotros</span>
               <div className="mobile-button-glow"></div>
             </Link>
