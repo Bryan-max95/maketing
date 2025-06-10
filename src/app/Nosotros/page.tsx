@@ -18,9 +18,9 @@ export default function AboutUsSection() {
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
   const stats = [
-    { number: "500+", label: "Proyectos Completados", icon: "🚀" },
-    { number: "98%", label: "Satisfacción del Cliente", icon: "⭐" },
-    { number: "5+", label: "Años de Experiencia", icon: "🏆" },
+    { number: "50+", label: "Proyectos Completados", icon: "🚀" },
+    { number: "100%", label: "Satisfacción del Cliente", icon: "⭐" },
+    { number: "8+", label: "Años de Experiencia", icon: "🏆" },
     { number: "50+", label: "Marcas Transformadas", icon: "✨" }
   ];
 
