@@ -1,9 +1,5 @@
 /* globals.css */
 body {
-  background: #000; /* o una imagen: url('/fondo.jpg') */
-  color: white; /* si tu fondo es oscuro */
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-size: cover;
-  background-position: center;
+  background: black;
+  
 }
