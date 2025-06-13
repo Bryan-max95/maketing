@@ -56,6 +56,7 @@ export default function TeamSection() {
       image: "/c.png",
       colorFrom: "rgba(234, 88, 12, 0.1)",
       colorTo: "rgba(220, 38, 38, 0.1)",
+      logo: "/mj.png", // Add logo path for Josué
     },
   ];
 
@@ -68,7 +69,7 @@ export default function TeamSection() {
       transition={{ duration: 0.8 }}
     >
       <div className="team-container">
-        {/* Encabezado */}
+        {/* Encabezado (unchanged) */}
         <motion.div
           className="header"
           initial={{ opacity: 0, y: -30 }}
@@ -185,13 +186,29 @@ export default function TeamSection() {
                     </motion.a>
                   ))}
                 </div>
+
+                {/* Conditionally render logo for Josué Carcamo */}
+                {member.name === "Josué Carcamo" && member.logo && (
+                  <div className="member-logo-container">
+                    <Image
+                      src={member.logo}
+                      alt={`${member.name} Logo`}
+                      width={100} // Adjust width as needed
+                      height={100} // Adjust height as needed
+                      className="member-logo"
+                      onError={() =>
+                        console.error(`Failed to load logo: ${member.logo}`)
+                      }
+                    />
+                  </div>
+                )}
               </div>
             </motion.div>
           ))}
         </motion.div>
       </div>
 
-      {/* Estilos globales */}
+      {/* Updated styles */}
       <style jsx global>{`
         .team-section {
           width: 100%;
@@ -362,6 +379,19 @@ export default function TeamSection() {
           color: #ffffff;
         }
 
+        /* New styles for the logo */
+        .member-logo-container {
+          display: flex;
+          justify-content: center;
+          margin-top: 1.5rem;
+        }
+
+        .member-logo {
+          object-fit: contain;
+          border-radius: 0.5rem; /* Optional: rounded corners for the logo */
+          border: 2px solid rgba(255, 255, 255, 0.1); /* Optional: subtle border */
+        }
+
         @media (min-width: 768px) {
           .member-info {
             flex-direction: row;
@@ -373,6 +403,10 @@ export default function TeamSection() {
           }
 
           .social-links {
+            justify-content: flex-start;
+          }
+
+          .member-logo-container {
             justify-content: flex-start;
           }
         }
@@ -409,7 +443,5 @@ export default function TeamSection() {
     </motion.section>
   );
 }
-
-
 
 
