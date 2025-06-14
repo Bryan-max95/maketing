@@ -1,508 +1,411 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { useState, useEffect, useRef } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import Link from "next/link";
+import Image from "next/image";
+import { useState } from "react";
 
-type MenuType = 'recursos' | 'recursos-mobile' | null;
-type SubMenuType = 'documentacion' | 'soluciones' | 'alianzas' | 'documentacion-mobile' | 'soluciones-mobile' | 'alianzas-mobile' | null;
-
-export default function Navbar() {
-  const [activeMenu, setActiveMenu] = useState<MenuType>(null);
-  const [activeSubMenu, setActiveSubMenu] = useState<SubMenuType>(null);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const pathname = usePathname();
-  const router = useRouter();
-  const recursosRef = useRef<HTMLDivElement>(null);
-
-  const handleAnchorClick = (e: React.MouseEvent, anchor: string) => {
-    e.preventDefault();
-    if (pathname === '/') {
-      const target = document.querySelector(anchor);
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
-      router.push(`/${anchor}`);
-    }
-    setActiveMenu(null);
-    setActiveSubMenu(null);
-    setIsMobileMenuOpen(false);
-  };
-
-  useEffect(() => {
-    console.log('Mobile Menu State:', isMobileMenuOpen); // Debug state
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        recursosRef.current &&
-        !recursosRef.current.contains(event.target as Node) &&
-        !isMobileMenuOpen
-      ) {
-        setActiveMenu(null);
-        setActiveSubMenu(null);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isMobileMenuOpen]);
-
-  const toggleMenu = (menu: MenuType, e: React.MouseEvent) => {
-    e.stopPropagation();
-    setActiveMenu(prev => (prev === menu ? null : menu));
-    setActiveSubMenu(null);
-  };
-
-  const toggleSubMenu = (subMenu: SubMenuType, e: React.MouseEvent) => {
-    e.stopPropagation();
-    setActiveSubMenu(prev => (prev === subMenu ? null : subMenu));
-  };
-
-  const dropdownVariants = {
-    hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.1,
-      duration: 0.6,
-      ease: [0.42, 0, 0.58, 1] as const // Custom cubic bezier
-    }
-  }),
-  hover: {
-    y: -4,
-    transition: { duration: 0.2 }
-  }
-  };
-
-  const mobileMenuVariants = {
-    hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.1,
-      duration: 0.6,
-      ease: [0.42, 0, 0.58, 1] as const // Custom cubic bezier
-    }
-  }),
-  hover: {
-    y: -4,
-    transition: { duration: 0.2 }
-  }
-  };
+const Navbar: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 w-full bg-gradient-to-b from-gray-900/90 to-gray-900/70 backdrop-blur-lg z-50 border-b border-gray-800/50 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          <Link
-            href="/"
-            className="flex items-center z-[80]"
-            onClick={() => {
-              setActiveMenu(null);
-              setActiveSubMenu(null);
-              setIsMobileMenuOpen(false);
-            }}
-          >
-            <div className="relative h-20 w-56 md:h-24 md:w-72 lg:h-32 lg:w-96 transition-transform duration-300 hover:scale-105">
-              <Image
-                src="/images/bwp1.png"
-                alt="BW Pentesting Logo"
-                fill
-                style={{ objectFit: 'contain', objectPosition: 'left center' }}
-                priority
-                quality={100}
-                sizes="(max-width: 768px) 224px, (max-width: 1024px) 288px, 384px"
-              />
-            </div>
+    <>
+      <nav className="navbar">
+        <div className="navbar-container">
+          {/* Logo */}
+          <Link href="/" className="logo-container">
+            <Image
+              src="/d.png"
+              alt="MarketingTop Logo"
+              width={150}
+              height={150}
+              className="logo"
+            />
           </Link>
 
-          <div className="md:hidden absolute left-1/2 transform -translate-x-1/2 z-[1000]">
-            <button
-              onClick={() => {
-                console.log('Hamburger clicked, isMobileMenuOpen:', !isMobileMenuOpen); // Debug click
-                setIsMobileMenuOpen(!isMobileMenuOpen);
-              }}
-              onTouchStart={() => {
-                console.log('Hamburger touched, isMobileMenuOpen:', !isMobileMenuOpen); // Debug touch
-                setIsMobileMenuOpen(!isMobileMenuOpen);
-              }}
-              className="text-gray-200 hover:text-[#8B0000] text-3xl focus:outline-none transition-transform duration-300 hover:scale-110"
-              aria-label="Toggle menu"
-            >
-              <span>{isMobileMenuOpen ? '✕' : '☰'}</span>
-            </button>
+          {/* Desktop Menu */}
+          <div className="desktop-menu">
+            <Link href="Servicios" className="nav-button">
+              <span className="button-text">Servicios</span>
+              <div className="button-glow"></div>
+            </Link>
+            <Link href="/Nosotros" className="nav-button">
+              <span className="button-text">Nosotros</span>
+              <div className="button-glow"></div>
+            </Link>
+            <Link href="/contact" className="nav-button nav-button-primary">
+              <span className="button-text">Contacto</span>
+              <div className="button-glow"></div>
+            </Link>
           </div>
 
-          <div className="hidden md:flex items-center space-x-2 lg:space-x-4 relative">
-            {[
-              { href: '/#CyberWarRoom', label: 'Features', anchor: '#CyberWarRoom' },
-              { href: '/#TechStackShowcase', label: 'ServTech', anchor: '#TechStackShowcase' },
-              { href: '/contact', label: 'Contact' },
-              { href: '/cotizacion', label: 'Cotización' },
-              { href: '/login', label: 'Login' },
-              { href: '/pricing', label: 'Pricing' },
-              { href: '/19952025', label: 'BWP' },
-              { href: '/20251995', label: 'CVE' },
-            ].map(item => (
-              <Link
-                key={item.label}
-                href={item.href}
-                onClick={item.anchor ? (e) => handleAnchorClick(e, item.anchor) : () => {}}
-                className="group relative text-gray-200 text-sm lg:text-base font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:bg-[#8B0000]/80 hover:text-white focus:outline-none focus:ring-2 focus:ring-[#8B0000] focus:ring-offset-2 focus:ring-offset-gray-900"
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="mobile-menu-button"
+          >
+            <span className="sr-only">Abrir menú</span>
+            {isOpen ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="menu-icon"
               >
-                {item.label}
-                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#8B0000] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-              </Link>
-            ))}
-            <div className="relative" ref={recursosRef}>
-              <button
-                onClick={(e) => toggleMenu('recursos', e)}
-                className="group relative text-gray-200 text-sm lg:text-base font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:bg-[#8B0000]/80 hover:text-white focus:outline-none focus:ring-2 focus:ring-[#8B0000] focus:ring-offset-2 focus:ring-offset-gray-900"
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="menu-icon"
               >
-                Recursos
-                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#8B0000] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-              </button>
-              <AnimatePresence>
-                {activeMenu === 'recursos' && (
-                  <motion.div
-                   
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                    className="fixed left-0 top-16 lg:top-20 w-full bg-gray-900/95 backdrop-blur-lg border border-gray-800/50 rounded-xl shadow-2xl z-40"
-                  >
-                    <div className="max-w-7xl mx-auto p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-                      <div className="group">
-                        <button
-                          onClick={(e) => toggleSubMenu('documentacion', e)}
-                          className="w-full text-left p-4 rounded-lg bg-gray-800/50 hover:bg-[#8B0000]/20 transition-all duration-300 border border-gray-700/50 group-hover:border-[#8B0000] focus:outline-none focus:ring-2 focus:ring-[#8B0000]"
-                        >
-                          <h3 className="text-gray-100 font-semibold">Documentación</h3>
-                          <p className="text-gray-400 text-sm mt-1">Accede a guías, manuales de implementación y herramientas.</p>
-                        </button>
-                        <AnimatePresence>
-                          {activeSubMenu === 'documentacion' && (
-                            <motion.div
-                              variants={dropdownVariants}
-                              initial="hidden"
-                              animate="visible"
-                              exit="exit"
-                              className="mt-2 flex flex-col space-y-2 pl-4"
-                            >
-                              {[
-                                { href: '/recursos/documentacion/guias', label: 'Implementación' },
-                                { href: '/recursos/documentacion/manuales', label: 'Herramientas' },
-                              ].map(item => (
-                                <Link
-                                  key={item.label}
-                                  href={item.href}
-                                  className="text-gray-300 hover:text-white px-4 py-2 rounded-lg hover:bg-[#8B0000]/30 transition-all duration-200"
-                                  onClick={() => {
-                                    setActiveMenu(null);
-                                    setActiveSubMenu(null);
-                                  }}
-                                >
-                                  {item.label}
-                                </Link>
-                              ))}
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                      <div className="group">
-                        <button
-                          onClick={(e) => toggleSubMenu('soluciones', e)}
-                          className="w-full text-left p-4 rounded-lg bg-gray-800/50 hover:bg-[#8B0000]/20 transition-all duration-300 border border-gray-700/50 group-hover:border-[#8B0000] focus:outline-none focus:ring-2 focus:ring-[#8B0000]"
-                        >
-                          <h3 className="text-gray-100 font-semibold">Soluciones</h3>
-                          <p className="text-gray-400 text-sm mt-1">Explora nuestras soluciones personalizadas para proteger tu infraestructura.</p>
-                        </button>
-                        <AnimatePresence>
-                          {activeSubMenu === 'soluciones' && (
-                            <motion.div
-                              variants={dropdownVariants}
-                              initial="hidden"
-                              animate="visible"
-                              exit="exit"
-                              className="mt-2 flex flex-col space-y-2 pl-4"
-                            >
-                              {[
-                                { href: '/recursos/soluciones/web', label: 'Seguridad Web' },
-                                { href: '/recursos/soluciones/redes', label: 'Protección de Redes y Infraestructura' },
-                                { href: '/recursos/soluciones/cloud', label: 'Seguridad en la Nube y Equipo PC' },
-                                { href: '/recursos/soluciones/camara', label: 'Seguridad Equipo de Cámara' },
-                              ].map(item => (
-                                <Link
-                                  key={item.label}
-                                  href={item.href}
-                                  className="text-gray-300 hover:text-white px-4 py-2 rounded-lg hover:bg-[#8B0000]/30 transition-all duration-200"
-                                  onClick={() => {
-                                    setActiveMenu(null);
-                                    setActiveSubMenu(null);
-                                  }}
-                                >
-                                  {item.label}
-                                </Link>
-                              ))}
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                      <div className="group">
-                        <button
-                          onClick={(e) => toggleSubMenu('alianzas', e)}
-                          className="w-full text-left p-4 rounded-lg bg-gray-800/50 hover:bg-[#8B0000]/20 transition-all duration-300 border border-gray-700/50 group-hover:border-[#8B0000] focus:outline-none focus:ring-2 focus:ring-[#8B0000]"
-                        >
-                          <h3 className="text-gray-100 font-semibold">Technology Pentesting</h3>
-                          <p className="text-gray-400 text-sm mt-1">Conoce nuestras asociaciones con líderes tecnológicos en ciberseguridad.</p>
-                        </button>
-                        <AnimatePresence>
-                          {activeSubMenu === 'alianzas' && (
-                            <motion.div
-                              variants={dropdownVariants}
-                              initial="hidden"
-                              animate="visible"
-                              exit="exit"
-                              className="mt-2 flex flex-col space-y-2 pl-4"
-                            >
-                              {[
-                                { href: '/recursos/alianzas/partner1', label: 'KaliLinux Archlinux' },
-                                { href: '/19951995', label: 'Machine Learning BWP' },
-                                { href: '/19952001', label: 'BWPentesting CyberLab' },
-                                { href: '/20252025', label: 'simulador C2' },
-                                { href: '/19950000', label: 'Pentesting' },
-                                { href: '/20012001', label: 'SecurityMatrix' },
-                                { href: '/19959999', label: 'SecurityDecision' },
-                                { href: '/00001995', label: 'ThreatRadar' },
-                                { href: '/00191995', label: 'ExploitRoom' },
-                                { href: '/19951111', label: 'fareSimulator' },
-                                { href: '/2001-2025', label: 'Network Segmentation' },
-                              ].map(item => (
-                                <Link
-                                  key={item.label}
-                                  href={item.href}
-                                  className="text-gray-300 hover:text-white px-4 py-2 rounded-lg hover:bg-[#8B0000]/30 transition-all duration-200"
-                                  onClick={() => {
-                                    setActiveMenu(null);
-                                    setActiveSubMenu(null);
-                                  }}
-                                >
-                                  {item.label}
-                                </Link>
-                              ))}
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                      <button
-                        onClick={() => {
-                          setActiveMenu(null);
-                          setActiveSubMenu(null);
-                        }}
-                        className="absolute top-4 right-4 text-gray-300 hover:text-white text-lg focus:outline-none transition-transform duration-300 hover:scale-110"
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            )}
+          </button>
         </div>
 
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              variants={mobileMenuVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              className="md:hidden fixed top-16 left-0 w-full bg-gray-900/95 backdrop-blur-lg px-4 py-3 z-[999] max-h-[calc(100dvh-64px)] overflow-y-auto"
-              style={{
-                scrollbarWidth: 'none',
-                msOverflowStyle: 'none',
-                WebkitOverflowScrolling: 'touch',
-              }}
-            >
-              <style jsx>{`
-                div::-webkit-scrollbar {
-                  display: none;
-                }
-              `}</style>
-              <div className="flex flex-col space-y-2">
-                {[
-                  { href: '/#features', label: 'Features', anchor: '#features' },
-                  { href: '/#TechStackShowcase', label: 'ServTech', anchor: '#TechStackShowcase' },
-                  { href: '/contact', label: 'Contact' },
-                  { href: '/cotizacion', label: 'Cotización' },
-                  { href: '/login', label: 'Login' },
-                  { href: '/pricing', label: 'Pricing' },
-                  { href: '/19952025', label: 'BWP' },
-                  { href: '/20251995', label: 'CVE' },
-                ].map(item => (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    onClick={item.anchor ? (e) => handleAnchorClick(e, item.anchor) : () => setIsMobileMenuOpen(false)}
-                    className="text-gray-200 text-sm font-medium py-2 px-3 rounded-lg bg-gray-800/50 hover:bg-[#8B0000]/80 hover:text-white transition-all duration-300 border border-gray-700/50 hover:border-[#8B0000]"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-                <div className="relative" ref={recursosRef}>
-                  <button
-                    onClick={(e) => toggleMenu('recursos-mobile', e)}
-                    className="w-full text-gray-200 text-sm font-medium py-2 px-3 rounded-lg bg-gray-800/50 hover:bg-[#8B0000]/80 hover:text-white transition-all duration-300 border border-gray-700/50 hover:border-[#8B0000]"
-                  >
-                    Recursos
-                  </button>
-                  <AnimatePresence>
-                    {activeMenu === 'recursos-mobile' && (
-                      <motion.div
-                        variants={mobileMenuVariants}
-                        initial="hidden"
-                        animate="visible"
-                        exit="exit"
-                        className="mt-2 flex flex-col space-y-2 pl-4"
-                      >
-                        <div>
-                          <button
-                            onClick={(e) => toggleSubMenu('documentacion-mobile', e)}
-                            className="w-full text-left text-gray-200 text-sm font-medium py-2 px-3 rounded-lg bg-gray-800/70 hover:bg-[#8B0000]/50 transition-all duration-300 border border-gray-700/50 hover:border-[#8B0000]"
-                          >
-                            <h3 className="font-semibold text-sm">Documentación</h3>
-                            <p className="text-gray-400 text-xs mt-1">Accede a guías, manuales de implementación y herramientas.</p>
-                          </button>
-                          <AnimatePresence>
-                            {activeSubMenu === 'documentacion-mobile' && (
-                              <motion.div
-                                variants={mobileMenuVariants}
-                                initial="hidden"
-                                animate="visible"
-                                exit="exit"
-                                className="mt-2 flex flex-col space-y-1 pl-4"
-                              >
-                                {[
-                                  { href: '/recursos/documentacion/guias', label: 'Guías' },
-                                  { href: '/recursos/documentacion/manuales', label: 'Manuales' },
-                                ].map(item => (
-                                  <Link
-                                    key={item.label}
-                                    href={item.href}
-                                    className="text-gray-300 text-sm hover:text-white px-3 py-1 rounded-lg hover:bg-[#8B0000]/30 transition-all duration-200"
-                                    onClick={() => {
-                                      setIsMobileMenuOpen(false);
-                                      setActiveMenu(null);
-                                      setActiveSubMenu(null);
-                                    }}
-                                  >
-                                    {item.label}
-                                  </Link>
-                                ))}
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
-                        </div>
-                        <div>
-                          <button
-                            onClick={(e) => toggleSubMenu('soluciones-mobile', e)}
-                            className="w-full text-left text-gray-200 text-sm font-medium py-2 px-3 rounded-lg bg-gray-800/70 hover:bg-[#8B0000]/50 transition-all duration-300 border border-gray-700/50 hover:border-[#8B0000]"
-                          >
-                            <h3 className="font-semibold text-sm">Soluciones</h3>
-                            <p className="text-gray-400 text-xs mt-1">Explora nuestras soluciones personalizadas para proteger tu infraestructura.</p>
-                          </button>
-                          <AnimatePresence>
-                            {activeSubMenu === 'soluciones-mobile' && (
-                              <motion.div
-                                variants={mobileMenuVariants}
-                                initial="hidden"
-                                animate="visible"
-                                exit="exit"
-                                className="mt-2 flex flex-col space-y-1 pl-4"
-                              >
-                                {[
-                                  { href: '/recursos/soluciones/web', label: 'Seguridad Web' },
-                                  { href: '/recursos/soluciones/redes', label: 'Protección de Redes y Infraestructura' },
-                                  { href: '/recursos/soluciones/cloud', label: 'Seguridad en la Nube y Equipos PC' },
-                                  { href: '/recursos/soluciones/camara', label: 'Seguridad en Equipos de Cámara' },
-                                ].map(item => (
-                                  <Link
-                                    key={item.label}
-                                    href={item.href}
-                                    className="text-gray-300 text-sm hover:text-white px-3 py-1 rounded-lg hover:bg-[#8B0000]/30 transition-all duration-200"
-                                    onClick={() => {
-                                      setIsMobileMenuOpen(false);
-                                      setActiveMenu(null);
-                                      setActiveSubMenu(null);
-                                    }}
-                                  >
-                                    {item.label}
-                                  </Link>
-                                ))}
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
-                        </div>
-                        <div>
-                          <button
-                            onClick={(e) => toggleSubMenu('alianzas-mobile', e)}
-                            className="w-full text-left text-gray-200 text-sm font-medium py-2 px-3 rounded-lg bg-gray-800/70 hover:bg-[#8B0000]/50 transition-all duration-300 border border-gray-700/50 hover:border-[#8B0000]"
-                          >
-                            <h3 className="font-semibold text-sm">Technology Alliances</h3>
-                            <p className="text-gray-400 text-xs mt-1">Conoce nuestras asociaciones con líderes en ciberseguridad.</p>
-                          </button>
-                          <AnimatePresence>
-                            {activeSubMenu === 'alianzas-mobile' && (
-                              <motion.div
-                                variants={mobileMenuVariants}
-                                initial="hidden"
-                                animate="visible"
-                                exit="exit"
-                                className="mt-2 flex flex-col space-y-1 pl-4"
-                              >
-                                {[
-                                  { href: '/recursos/alianzas/partner1', label: 'KaliLinux Archlinux' },
-                                  { href: '/19951995', label: 'Machine Learning BWP' },
-                                  { href: '/19952001', label: 'BWPentesting CyberLab' },
-                                  { href: '/20252025', label: 'simulador C2' },
-                                  { href: '/19950000', label: 'Pentesting' },
-                                  { href: '/20012001', label: 'SecurityMatrix' },
-                                  { href: '/19959999', label: 'SecurityDecision' },
-                                  { href: '/00001995', label: 'Sppp' },
-                                ].map(item => (
-                                  <Link
-                                    key={item.label}
-                                    href={item.href}
-                                    className="text-gray-300 text-sm hover:text-white px-3 py-1 rounded-lg hover:bg-[#8B0000]/30 transition-all duration-200"
-                                    onClick={() => {
-                                      setIsMobileMenuOpen(false);
-                                      setActiveMenu(null);
-                                      setActiveSubMenu(null);
-                                    }}
-                                  >
-                                    {item.label}
-                                  </Link>
-                                ))}
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </nav>
+        {/* Mobile Menu */}
+        {isOpen && (
+          <div className="mobile-menu">
+            <Link href="/Servicios" className="mobile-nav-button">
+              <span className="mobile-button-text">Servicios</span>
+              <div className="mobile-button-glow"></div>
+            </Link>
+            <Link href="/Nosotros" className="mobile-nav-button">
+              <span className="mobile-button-text">Nosotros</span>
+              <div className="mobile-button-glow"></div>
+            </Link>
+            <Link href="/contact" className="mobile-nav-button mobile-nav-button-primary">
+              <span className="mobile-button-text">Contacto</span>
+              <div className="mobile-button-glow"></div>
+            </Link>
+          </div>
+        )}
+      </nav>
+
+      {/* CSS mejorado manteniendo tu estilo */}
+      <style jsx global>{`
+        .navbar {
+          background: linear-gradient(90deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+          position: fixed;
+          width: 100%;
+          top: 0;
+          z-index: 1000;
+          padding: 0.75rem 0;
+          height: 70px;
+          box-shadow: 0 4px 20px rgba(59, 130, 246, 0.15);
+          backdrop-filter: blur(10px);
+          border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .navbar-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 1.5rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          height: 100%;
+        }
+
+        .logo-container {
+          display: flex;
+          align-items: center;
+          text-decoration: none;
+          transition: transform 0.3s ease;
+        }
+
+        .logo-container:hover {
+          transform: scale(1.05);
+        }
+
+        .logo {
+          width: 150px;
+          height: 150px;
+          object-fit: contain;
+          filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.3));
+        }
+
+        .desktop-menu {
+          display: flex;
+          gap: 1rem;
+        }
+
+        /* Botones mejorados manteniendo tu estilo */
+        .nav-button {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1rem;
+          font-weight: 600;
+          color: #ffffff !important;
+          text-decoration: none !important;
+          padding: 0.75rem 1.5rem;
+          background: linear-gradient(135deg, #2563eb 0%, #4f46e5 50%, #3730a3 100%) !important;
+          border: 1px solid rgba(59, 130, 246, 0.3) !important;
+          border-radius: 8px;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          overflow: hidden;
+          box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+          backdrop-filter: blur(5px);
+        }
+
+        .nav-button::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+          transition: left 0.6s ease;
+        }
+
+        .button-text {
+          position: relative;
+          z-index: 2;
+        }
+
+        .button-glow {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(79, 70, 229, 0.2));
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          border-radius: 8px;
+        }
+
+        .nav-button:hover {
+          background: linear-gradient(135deg,rgb(36, 44, 99) 0%,rgb(33, 34, 79) 50%,rgb(29, 20, 130) 100%) !important;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+          border-color: rgba(59, 130, 246, 0.5) !important;
+        }
+
+        .nav-button:hover::before {
+          left: 100%;
+        }
+
+        .nav-button:hover .button-glow {
+          opacity: 1;
+        }
+
+        .nav-button:active {
+          transform: translateY(0);
+          box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Botón primario (contacto) mejorado */
+        .nav-button-primary {
+          background: linear-gradient(135deg,rgb(42, 40, 111) 0%,rgb(16, 14, 110) 50%,rgb(17, 33, 101) 100%) !important;
+          border: 1px solid rgba(31, 26, 44, 0.81) !important;
+          box-shadow: 0 2px 8px rgba(16, 24, 185, 0.2);
+        }
+
+        .nav-button-primary .button-glow {
+          background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2));
+        }
+
+        .nav-button-primary:hover {
+          background: linear-gradient(135deg,rgb(37, 28, 98) 0%,rgb(18, 29, 75) 50%,rgb(28, 29, 48) 100%) !important;
+          box-shadow: 0 8px 25px rgba(41, 16, 185, 0.4);
+          border-color: rgba(41, 16, 185, 0.6) !important;
+        }
+
+        /* Botón del menú móvil mejorado */
+        .mobile-menu-button {
+          display: none;
+          background: linear-gradient(135deg, #2563eb, #4f46e5);
+          border: 1px solid rgba(59, 130, 246, 0.3);
+          border-radius: 8px;
+          padding: 0.75rem;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          backdrop-filter: blur(5px);
+        }
+
+        .mobile-menu-button:hover {
+          background: linear-gradient(135deg, #3b82f6, #6366f1);
+          border-color: rgba(59, 130, 246, 0.5);
+          transform: scale(1.05);
+        }
+
+        .menu-icon {
+          width: 1.5rem;
+          height: 1.5rem;
+          stroke: #ffffff;
+          transition: all 0.3s ease;
+        }
+
+        .mobile-menu-button:hover .menu-icon {
+          transform: rotate(90deg);
+        }
+
+        /* Menú móvil mejorado */
+        .mobile-menu {
+          background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+          padding: 1.5rem;
+          border-top: 1px solid rgba(59, 130, 246, 0.2);
+          animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .mobile-nav-button {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1rem;
+          font-weight: 600;
+          color: #ffffff !important;
+          text-decoration: none !important;
+          padding: 1rem 1.5rem;
+          background: linear-gradient(135deg, #2563eb 0%, #4f46e5 50%, #3730a3 100%) !important;
+          border: 1px solid rgba(59, 130, 246, 0.3) !important;
+          border-radius: 8px;
+          margin: 0.5rem 0;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          overflow: hidden;
+          box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+        }
+
+        .mobile-nav-button::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+          transition: left 0.6s ease;
+        }
+
+        .mobile-button-text {
+          position: relative;
+          z-index: 2;
+        }
+
+        .mobile-button-glow {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(79, 70, 229, 0.2));
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          border-radius: 8px;
+        }
+
+        .mobile-nav-button:hover {
+          background: linear-gradient(135deg, #3b82f6 0%, #6366f1 50%, #4338ca 100%) !important;
+          transform: translateX(8px);
+          box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+          border-color: rgba(59, 130, 246, 0.5) !important;
+        }
+
+        .mobile-nav-button:hover::before {
+          left: 100%;
+        }
+
+        .mobile-nav-button:hover .mobile-button-glow {
+          opacity: 1;
+        }
+
+        .mobile-nav-button:active {
+          transform: translateX(4px);
+        }
+
+        /* Botón primario móvil */
+        .mobile-nav-button-primary {
+          background: linear-gradient(135deg, #059669 0%, #10b981 50%, #047857 100%) !important;
+          border: 1px solid rgba(16, 185, 129, 0.4) !important;
+          box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+        }
+
+        .mobile-nav-button-primary .mobile-button-glow {
+          background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2));
+        }
+
+        .mobile-nav-button-primary:hover {
+          background: linear-gradient(135deg, #10b981 0%, #34d399 50%, #059669 100%) !important;
+          box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+          border-color: rgba(16, 185, 129, 0.6) !important;
+        }
+
+        @media (max-width: 768px) {
+          .desktop-menu {
+            display: none;
+          }
+
+          .mobile-menu-button {
+            display: block;
+          }
+
+          .mobile-menu {
+            display: block;
+          }
+
+          /* Logo más pequeño en móvil para mejor proporción */
+          .logo {
+            width: 50px;
+            height: 50px;
+          }
+
+          .navbar {
+            height: 60px;
+            padding: 0.5rem 0;
+          }
+        }
+
+        @media (min-width: 769px) {
+          .mobile-menu {
+            display: none;
+          }
+        }
+
+        .sr-only {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          border: 0;
+        }
+      `}</style>
+    </>
   );
-}
+};
+
+export default Navbar;
