@@ -114,6 +114,18 @@ export default function ServicesCarousel() {
 
   const currentService = services[currentIndex];
 
+  // Array of 8 additional images from local / directory
+  const additionalImages = [
+    "/1.jpeg",
+    "/2.jpeg",
+    "/3.jpeg",
+    "/4.jpeg",
+    "/5.jpeg",
+    "/6.jpeg",
+    "/9.jpeg",
+    "/8.jpeg",
+  ];
+
   return (
     <div className="services-carousel-container">
       {/* Header */}
@@ -239,6 +251,27 @@ export default function ServicesCarousel() {
                 {service.icon}
               </div>
               <span className="preview-title">{service.title}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Additional Images Section */}
+      <div className="additional-images-section">
+        <h2 className="additional-images-title">Galería de Proyectos</h2>
+        <div className="additional-images-grid">
+          {additionalImages.map((image, index) => (
+            <div key={index} className="additional-image-container">
+              <Image
+                src={image}
+                alt={`Proyecto ${index + 1}`}
+                className="additional-image"
+                layout="responsive"
+                width={400}
+                height={300}
+                style={{ objectFit: 'contain' }}
+              />
+              <div className="additional-image-overlay"></div>
             </div>
           ))}
         </div>
@@ -597,6 +630,61 @@ export default function ServicesCarousel() {
           font-size: 0.875rem;
         }
 
+        /* Additional Images Section Styles */
+        .additional-images-section {
+          max-width: 1400px;
+          margin: 6rem auto;
+          padding: 0 2rem;
+          position: relative;
+          z-index: 2;
+        }
+
+        .additional-images-title {
+          font-size: 2.5rem;
+          font-weight: 700;
+          color: #ffffff;
+          margin-bottom: 3rem;
+          text-align: center;
+          line-height: 1.2;
+        }
+
+        .additional-images-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 2.5rem;
+          padding: 1rem;
+        }
+
+        .additional-image-container {
+          position: relative;
+          border-radius: 16px;
+          overflow: hidden;
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+          transition: transform 0.3s ease;
+          aspect-ratio: 4 / 3;
+        }
+
+        .additional-image-container:hover {
+          transform: scale(1.05);
+        }
+
+        .additional-image {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          transition: transform 0.5s ease;
+        }
+
+        .additional-image-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.3));
+          transition: opacity 0.3s ease;
+        }
+
         @keyframes progress {
           0% {
             transform: translateX(-100%);
@@ -618,6 +706,11 @@ export default function ServicesCarousel() {
           
           .service-title {
             font-size: 2rem;
+          }
+          
+          .additional-images-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
           }
         }
 
@@ -651,6 +744,18 @@ export default function ServicesCarousel() {
             flex-direction: column;
             text-align: center;
             padding: 1rem;
+          }
+          
+          .additional-images-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .additional-images-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
           }
         }
       `}</style>
